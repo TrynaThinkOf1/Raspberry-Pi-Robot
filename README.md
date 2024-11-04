@@ -1,6 +1,6 @@
-# Raspberry Pi 4 Remote-Controlled Robot Tank
+# Raspberry Pi 3 B+ Remote-Controlled Robot Tank
 
-A Python-powered, remote-controlled robot tank built on the Raspberry Pi 4. This project controls a robot tank through a Python Flask web interface, offering command-line-style control over various movements, functions, and sensors on the tank. This is my very first project combining both software and hardware (other than basic Arduino builds).
+A Python-powered, remote-controlled robot tank built on the Raspberry Pi 3 B+. This project controls a robot tank through a Python Flask web interface, offering command-line-style control over various movements, functions, and sensors on the tank. This is my very first project combining both software and hardware (other than basic Arduino builds).
 
 ## Features
 
