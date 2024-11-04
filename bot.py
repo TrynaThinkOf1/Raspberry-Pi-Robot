@@ -70,6 +70,6 @@ def command_check():
             report.report_error(error)
             main()
 
-def update_dashboard(update):
+def update(update):
     pass
-    # TODO: Program updates for the website dashboard to receive
+    # TODO: Program updates for the website
