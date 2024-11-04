@@ -1,10 +1,14 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect
 
 command = ""
-errors = ""
+
+errors = []
+updates = []
+
 site = Flask(__name__)
 
-@site.route('/')
+#PLACE ON SITE TO CONTROL WITH KEYS
+@site.route("/")
 def index():
     return render_template('index.html')
 
@@ -32,10 +36,16 @@ def report_error():
 def see_errors():
         return errors
 
-@site.route("/update_dashboard")
+@site.route("/update", methods=['GET'])
 def update_dashboard():
+    global updates
     update = request.args.get('update')
+    updates.append(update)
+    return redirect("/", code=302)
 
+@site.route("/see_updates")
+def update():
+    return updates
 
 if __name__ == '__main__':
     site.run(host="0.0.0.0", debug=True)
