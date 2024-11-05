@@ -5,6 +5,8 @@ command = ""
 errors = []
 updates = []
 
+app_update = ""
+
 site = Flask(__name__)
 
 #PLACE ON SITE TO CONTROL WITH KEYS
@@ -39,13 +41,19 @@ def see_errors():
 @site.route("/update", methods=['GET'])
 def update_dashboard():
     global updates
+    global app_update
     update = request.args.get('update')
     updates.append(update)
+    app_update = update
     return redirect("/", code=302)
 
 @site.route("/see_updates")
 def update():
     return updates
+
+@site.route("/see_app_update")
+def see_app_update():
+    return app_update
 
 if __name__ == '__main__':
     site.run(host="0.0.0.0", debug=True)
