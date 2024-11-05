@@ -2,11 +2,12 @@ from gpiozero import LED, Buzzer
 import time
 
 from modules import report
+from modules.report import report_update
 
 #LEDs
-red_led = LED(1) # TODO: Figure out which pin to put the red LED into
-green_led = LED(2) # TODO: Figure out which pin to put the green LED into
-white_led = LED(3) # TODO: Figure out which pin to put the white LED into
+red_led = LED("BOARD8") 
+green_led = LED("BOARD10")
+white_led = LED("BOARD12")
 
 def red_LED():
     red_led.toggle()
@@ -29,7 +30,7 @@ def red_LED_on(): #FOR SYSTEM USE
     red_led.off()
 
 #Buzzer
-buzzer = Buzzer(3) # TODO 3: Figure out which pin to put the Piezo butter into
+buzzer = Buzzer("BOARD32")
 
 def buzz():
     buzzer.toggle()
@@ -40,3 +41,4 @@ def buzz():
 
 def beep(interval):
         buzzer.beep(interval, interval, 8)
+        report.report_update("Buzzer beeping...")
