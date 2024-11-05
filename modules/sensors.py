@@ -1,11 +1,11 @@
 import gpiozero as gpio
 import time
 
-from modules import move, report
+from modules import move
 from modules import peripherals as prp
-from modules.report import report_error
+from modules import report
 
-us_sensor = gpio.DistanceSensor(1, 2, max_distance=1, threshold_distance=0.3) # TODO: Figure out which pin to put the distance sensor into
+us_sensor = gpio.DistanceSensor("BOARD11", "BOARD13", max_distance=1, threshold_distance=0.3) 
 cpu = gpio.CPUTemperature(min_temp=15, max_temp=100)
 
 def main():
@@ -17,9 +17,10 @@ def distance_report():
     if us_sensor.distance <= 0.1:
         move.stop()
         report.report_error(f"Robot was {(us_sensor.distance * 10)} centimeters away, moving back {(us_sensor.distance * 10)} centimeters")
+        prp.red_LED_on()
         move.move_backward(us_sensor.distance)
     else:
-        report.report_error(f"Robot is {(us_sensor.distance * 10)} centimeters away from the nearest object")
+        report.report_update(f"Robot is {(us_sensor.distance * 10)} centimeters away from the nearest object")
 
 def temperature_report():
-    report_error(f"CPU is currently {cpu.temperature}º C")
+    report.report_update(f"CPU is currently {cpu.temperature}º C")
