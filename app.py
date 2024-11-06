@@ -1,5 +1,6 @@
 import requests
 import time
+import subprocess
 
 command_list_help = {
     "fwd:(centimeters)": "Robot moves forward the amount of centimeters inputted",
@@ -17,22 +18,29 @@ command_list_valid = [
 ]
 
 def main():
-    print("Type 'HELP' to list commands")
-    print(command_list_help.keys())
+    print("'Help' for help, 'Errors' for errors, 'Updates' for full updates")
     while True:
         get_command()
 
+
 def get_command():
         command = str(input(": "))
+        #system command checks
         if command.upper() == 'HELP':
             for command in command_list_help:
                 print(command + " -> " + command_list_help[command] + "\n")
-        elif command in command_list_valid:
+        elif command.upper() == 'ERRORS':
+            print(requests.get("http://localhost:5000/see_errors").content.decode('utf-8'))
+        elif command.upper() == 'UPDATES':
+            print(requests.get("http://localhost:5000/see_updates").content.decode('utf-8'))
+
+        #robot command check
+        elif command[0:4] in command_list_valid:
             requests.get("http://localhost:5000/give_command", params={"command":command})
             time.sleep(0.15)
-            print(requests.get("http://localhost:5000/see_app_update").content.decode())
+            print(requests.get("http://localhost:5000/see_app_update").content.decode('utf-8'))
             time.sleep(0.15)
-            print(requests.get("http://localhost:5000/see_app_update").content.decode())
+            print(requests.get("http://localhost:5000/see_app_update").content.decode('utf-8'))
         else:
             print("Invalid command")
 
