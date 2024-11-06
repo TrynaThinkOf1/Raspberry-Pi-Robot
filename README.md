@@ -22,4 +22,4 @@ A Python-powered, remote-controlled robot tank built on the Raspberry Pi 3 B. Th
 
 - **STL Files**: These are the 3d print files use the latest one.
 - **Circuit Diagrams**: These are not accurate _to the Pi GPIO pins_, they are however accurate for all the components.
-      - **When Changing Pins**: Use a diagram of the Pi GPIO pins _and the gpiozero documentation_ to properly change the code to match your circuit.
+-- **When Changing Pins**: Use a diagram of the Pi GPIO pins _and the gpiozero documentation_ to properly change the code to match your circuit.
