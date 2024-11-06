@@ -12,8 +12,14 @@ A Python-powered, remote-controlled robot tank built on the Raspberry Pi 3 B. Th
 
 ## Technologies
 
-- **Raspberry Pi 3 B+**: Acts as the main processor and control unit.
+- **Raspberry Pi 3 B**: Acts as the main processor and control unit.
 - **Python Flask**: Hosts a web server for the remote control interface.
 - **Motor Controller**: Controls the tank’s movements.
 - **Ultrasonic Sensor**: (Optional) Detects obstacles and provides data to avoid collisions.
 - **Pi Camera**: Streams live video for remote viewing.
+
+## Repo Info
+
+- **STL Files**: These are the 3d print files use the latest one.
+- **Circuit Diagrams**: These are not accurate _to the Pi GPIO pins_, they are however accurate for all the components.
+      - **When Changing Pins**: Use a diagram of the Pi GPIO pins _and the gpiozero documentation_ to properly change the code to match your circuit.
