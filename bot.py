@@ -6,7 +6,7 @@ from modules import peripherals as prp
 
 tries = 10
 
-rec_cmd = rq.get('http://192.168.50.77:5000/rec_cmd').content.decode('utf-8')
+rec_cmd = rq.get('http://localhost:5000/rec_cmd').content.decode('utf-8')
 
 def main():
     while True:
@@ -18,6 +18,7 @@ def command_check():
     if rec_cmd[0:4] == 'fwd:':
         try:
             move.move_forward(float(rec_cmd[4:]))
+            time.sleep(float(rec_cmd[4:])/10)
         except Exception as error:
             if tries > 0:
                 report.report_error(error)
@@ -26,6 +27,7 @@ def command_check():
     if rec_cmd[0:4] == 'bkd:':
         try:
             move.move_backward(float(rec_cmd[4:]))
+            time.sleep(float(rec_cmd[4:])/10)
         except Exception as error:
             if tries > 0:
                 report.report_error(error)
@@ -34,6 +36,7 @@ def command_check():
     if rec_cmd[0:5] == 'left:':
         try:
             move.turn_left(float(rec_cmd[5:]))
+            time.sleep(float(rec_cmd[5:])/10)
         except Exception as error:
             if tries > 0:
                 report.report_error(error)
@@ -42,6 +45,7 @@ def command_check():
     if rec_cmd[0:6] == 'right:':
         try:
             move.turn_right(float(rec_cmd[6:]))
+            time.sleep(float(rec_cmd[6:])/10)
         except Exception as error:
             if tries > 0:
                 report.report_error(error)
@@ -83,3 +87,6 @@ def command_check():
                 main()
             else:
                 report.report_error(f"To many tries: {error}")
+
+if __name__ == '__main__':
+    main()
