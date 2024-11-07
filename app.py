@@ -53,9 +53,9 @@ def get_command():
         elif command[0:4] in command_list_valid:
             try:
                 requests.get("http://localhost:5000/give_command", params={"command":command})
-                time.sleep(0.15)
+                time.sleep(0.2)
                 print("    " + requests.get("http://localhost:5000/see_app_update").content.decode('utf-8') + "\n")
-                time.sleep(0.15)
+                time.sleep((float(command[4:]))/10)
                 print("    " + requests.get("http://localhost:5000/see_app_update").content.decode('utf-8') + "\n")
             except Exception as e:
                 print(e)
