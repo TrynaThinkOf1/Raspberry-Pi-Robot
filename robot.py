@@ -78,7 +78,7 @@ try:
                 GPIO.output(in2,GPIO.LOW)
                 
                 GPIO.output(in4,GPIO.LOW)
-                GPIO.output(in3,GPIO.HGIH)
+                GPIO.output(in3,GPIO.HIGH)
                 print("Left")
             
             elif command == 'c':
