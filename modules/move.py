@@ -1,75 +1,98 @@
-from gpiozero import Motor, PWMOutputDevice
-from gpiozero.pins.pigpio import PiGPIOFactory
-import time
+import RPi.GPIO as GPIO
+from time import sleep
 
-from modules import report
-from modules import peripherals as prp
+command_list_help = {
+    "w": "move forward until stopped",
+    "s": "move backward until stopped",
+    "a": "turn left until stopped",
+    "d": "turn right until stopped"
+}
 
-# Use PiGPIOFactory to avoid conflict with RPi.GPIO if needed
-factory = PiGPIOFactory()
+GPIO.setwarnings(False)
 
-# Configure motor pins
-ena = PWMOutputDevice("BOARD36", pin_factory=factory)
-enb = PWMOutputDevice("BOARD38", pin_factory=factory)
-motor_left = Motor(forward="BOARD16", backward="BOARD18", pin_factory=factory)
-motor_right = Motor(forward="BOARD24", backward="BOARD26", pin_factory=factory)
+# Right Motor
+in1 = 17
+in2 = 27
+en_a = 4
+# Left Motor
+in3 = 5
+in4 = 6
+en_b = 13
 
-def move_forward(cm): #estimated speed is 10cm/second
-    ena.value = 1.0
-    enb.value = 1.0
-    motor_left.forward()
-    motor_right.forward()
-    report.report_update(f"Moving forward {cm}cm")
-    time.sleep(cm/10)
-    motor_left.stop()
-    motor_right.stop()
-    ena.value = 0.0
-    enb.value = 0.0
-    report.report_update("Stopped")
 
-def move_backward(cm):
-    ena.value = 0.8
-    enb.value = 0.8
-    motor_left.backward()
-    motor_right.backward()
-    report.report_update(f"Moving backward {cm}cm")
-    time.sleep(cm/10)
-    motor_left.stop()
-    motor_right.stop()
-    ena.value = 0.0
-    enb.value = 0.0
-    report.report_update("Stopped")
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(in1,GPIO.OUT)
+GPIO.setup(in2,GPIO.OUT)
+GPIO.setup(en_a,GPIO.OUT)
 
-def turn_left(degrees): #estimated turn-rate is 10º/second
-    ena.value = 1.0
-    enb.value = 1.0
-    motor_left.backward()
-    motor_right.forward()
-    report.report_update(f"Turning left {degrees}º")
-    time.sleep(degrees/10)
-    motor_left.stop()
-    motor_right.stop()
-    ena.value = 0.0
-    enb.value = 0.0
-    report.report_update("Stopped")
+GPIO.setup(in3,GPIO.OUT)
+GPIO.setup(in4,GPIO.OUT)
+GPIO.setup(en_b,GPIO.OUT)
 
-def turn_right(degrees):
-    ena.value = 1.0
-    enb.value = 1.0
-    motor_left.forward()
-    motor_right.backward()
-    report.report_update(f"Turning right {degrees}º")
-    time.sleep(degrees/10)
-    motor_left.stop()
-    motor_right.stop()
-    ena.value = 0.0
-    enb.value = 0.0
-    report.report_update("Stopped")
+q=GPIO.PWM(en_a,100)
+p=GPIO.PWM(en_b,100)
+p.start(75)
+q.start(75)
 
-def stop():
-    ena.value = 0.0
-    enb.value = 0.0
-    motor_left.stop()
-    motor_right.stop()
-    report.report_update("Stopped")
-    prp.red_LED_on()
+GPIO.output(in1,GPIO.LOW)
+GPIO.output(in2,GPIO.LOW)
+GPIO.output(in4,GPIO.LOW)
+GPIO.output(in3,GPIO.LOW)
+
+try:
+    while(True):
+        command = input(">> ")
+        
+        if command.lower() == "help":
+            for command in command_list_help:
+            print(command + " -> " + command_list_help[command] + "\n")
+        if command in command_list_valid:
+            if command == 'w':
+                GPIO.output(in1,GPIO.HIGH)
+                GPIO.output(in2,GPIO.LOW)
+                
+                GPIO.output(in4,GPIO.HIGH)
+                GPIO.output(in3,GPIO.LOW)
+                print("Forward")
+                
+            elif command == 's':
+                GPIO.output(in1,GPIO.LOW)
+                GPIO.output(in2,GPIO.HIGH)
+                
+                GPIO.output(in4,GPIO.LOW)
+                GPIO.output(in3,GPIO.HIGH)
+                print("Backward")
+                
+            elif command == 'd':
+                GPIO.output(in1,GPIO.LOW)
+                GPIO.output(in2,GPIO.HIGH)
+                
+                GPIO.output(in4,GPIO.LOW)
+                GPIO.output(in3,GPIO.LOW)
+                print("Right")
+                
+            elif command == 'a':
+                GPIO.output(in1,GPIO.HIGH)
+                GPIO.output(in2,GPIO.LOW)
+                
+                GPIO.output(in4,GPIO.LOW)
+                GPIO.output(in3,GPIO.LOW)
+                print("Left")
+            
+            elif command == 'c':
+                GPIO.output(in1,GPIO.LOW)
+                GPIO.output(in2,GPIO.LOW)
+                
+                GPIO.output(in4,GPIO.LOW)
+                GPIO.output(in3,GPIO.LOW)
+                print("Stop")
+        else:
+            print("Invalid Command \n")
+
+except KeyboardInterrupt:
+  GPIO.cleanup()
+  print("GPIO Clean up")
+
+if __name__ == "__main__":
+    print("'help' for command list")
+
