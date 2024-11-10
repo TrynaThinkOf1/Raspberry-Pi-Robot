@@ -1,6 +1,14 @@
 import RPi.GPIO as GPIO
-import keyboard
 from time import sleep
+
+command_list_help = {
+    "w": "move forward until stopped",
+    "s": "move backward until stopped",
+    "a": "turn left until stopped",
+    "d": "turn right until stopped"
+}
+
+command_list_valid = {"w", "a", "s", "d", "c"}
 
 GPIO.setwarnings(False)
 
@@ -33,70 +41,59 @@ GPIO.output(in2,GPIO.LOW)
 GPIO.output(in4,GPIO.LOW)
 GPIO.output(in3,GPIO.LOW)
 
-try:    
-    def move_forward():
-        GPIO.output(in1,GPIO.HIGH)
-        GPIO.output(in2,GPIO.LOW)
+try:
+    while(True):
+        command = input(">> ")
         
-        GPIO.output(in4,GPIO.HIGH)
-        GPIO.output(in3,GPIO.LOW)
-        print("Forward")
-    
-    def move_backward():
-        GPIO.output(in1,GPIO.LOW)
-        GPIO.output(in2,GPIO.HIGH)
-        
-        GPIO.output(in4,GPIO.LOW)
-        GPIO.output(in3,GPIO.HIGH)
-        print("Backward")
-    
-    def turn_right():
-        GPIO.output(in1,GPIO.LOW)
-        GPIO.output(in2,GPIO.HIGH)
-        
-        GPIO.output(in4,GPIO.HIGH)
-        GPIO.output(in3,GPIO.LOW)
-        print("Right")
-    
-    def turn_left():
-        GPIO.output(in1,GPIO.HIGH)
-        GPIO.output(in2,GPIO.LOW)
-        
-        GPIO.output(in4,GPIO.LOW)
-        GPIO.output(in3,GPIO.HIGH)
-        print("Left")
-    
-    def stop_movement():
-        GPIO.output(in1,GPIO.LOW)
-        GPIO.output(in2,GPIO.LOW)
-        
-        GPIO.output(in4,GPIO.LOW)
-        GPIO.output(in3,GPIO.LOW)
-        print("Stop")
+        if command.lower() == "help":
+            for command in command_list_help:
+                print(command + " -> " + command_list_help[command] + "\n")
+        if command in command_list_valid:
+            if command == 'w':
+                GPIO.output(in1,GPIO.HIGH)
+                GPIO.output(in2,GPIO.LOW)
+                
+                GPIO.output(in4,GPIO.HIGH)
+                GPIO.output(in3,GPIO.LOW)
+                print("Forward")
+                
+            elif command == 's':
+                GPIO.output(in1,GPIO.LOW)
+                GPIO.output(in2,GPIO.HIGH)
+                
+                GPIO.output(in4,GPIO.LOW)
+                GPIO.output(in3,GPIO.HIGH)
+                print("Backward")
+                
+            elif command == 'd':
+                GPIO.output(in1,GPIO.LOW)
+                GPIO.output(in2,GPIO.HIGH)
+                
+                GPIO.output(in4,GPIO.HIGH)
+                GPIO.output(in3,GPIO.LOW)
+                print("Right")
+                
+            elif command == 'a':
+                GPIO.output(in1,GPIO.HIGH)
+                GPIO.output(in2,GPIO.LOW)
+                
+                GPIO.output(in4,GPIO.LOW)
+                GPIO.output(in3,GPIO.HIGH)
+                print("Left")
+            
+            elif command == 'c':
+                GPIO.output(in1,GPIO.LOW)
+                GPIO.output(in2,GPIO.LOW)
+                
+                GPIO.output(in4,GPIO.LOW)
+                GPIO.output(in3,GPIO.LOW)
+                print("Stop")
+        else:
+            print("Invalid Command \n")
 
 except KeyboardInterrupt:
-    GPIO.cleanup()
-    print("GPIO Clean up")
-
-def on_key_press(event):
-    if event.name == 'w':
-        move_forward()
-    elif event.name == 's':
-        move_backward()
-    elif event.name == 'a':
-        turn_left()
-    elif event.name == 'd':
-        turn_right()
-
-def on_key_release(event):
-    if event.name in {'w', 's', 'a', 'd'}:
-        stop_movement()
-
-keyboard.on_press(on_key_press)
-keyboard.on_release(on_key_release)
-
-keyboard.wait('esc')
+  GPIO.cleanup()
+  print("GPIO Clean up")
 
 if __name__ == "__main__":
     print("'help' for command list")
-
