@@ -1,5 +1,6 @@
 import requests
 import time
+from os import system
 
 command_list_help = {
     "fwd:(centimeters)": "Robot moves forward the amount of centimeters inputted",
@@ -42,12 +43,7 @@ def get_command():
                 print("\n" * 5)
                 main()
         elif command.upper() == 'CLEAR':
-            try:
-                print("\n" * 50)
-            except Exception as e:
-                print(e)
-                print("\n" * 5)
-                main()
+            system("clear")
 
         #robot command check
         elif command[0:4] in command_list_valid:
