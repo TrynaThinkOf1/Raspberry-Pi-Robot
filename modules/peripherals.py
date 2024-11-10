@@ -2,7 +2,6 @@ from gpiozero import LED, Buzzer
 import time
 
 from modules import report
-from modules.report import report_update
 
 #LEDs
 red_led = LED("BOARD8") 
