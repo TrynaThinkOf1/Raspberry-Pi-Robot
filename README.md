@@ -1,11 +1,10 @@
 # Raspberry Pi 3 B Remote-Controlled Robot
 
-A Python-powered, remote-controlled robot built on the Raspberry Pi 3 B. This project controls a robot tank through a Python script offering command-line-style control over various movements, functions, and sensors on the robot. This is my very first project combining both software and hardware (other than basic Arduino builds).
+A Python-powered, remote-controlled robot built on the Raspberry Pi 3 B. This project controls a robot tank through a Python script offering command-line-style control over various movements on the robot. This is my very first project combining both software and hardware (other than basic Arduino builds).
 
 ## Features
 
 - **Remote-Control Interface**: Issue commands from any device with internet access using a command-line interface.
-- **Sensors Integration**: Detect obstacles and measure distances with an ultrasonic sensor.
 - **Python-Based**: Fully programmable in Python, making it accessible and highly customizable.
 
 ## Technologies
@@ -13,7 +12,6 @@ A Python-powered, remote-controlled robot built on the Raspberry Pi 3 B. This pr
 - **Raspberry Pi 3 B**: Acts as the main processor and control unit.
 - **Python Script**: Hosts a web server for the remote control interface.
 - **Motor Controller**: Controls the robots’s movements.
-- **Ultrasonic Sensor**: Detects obstacles and provides data to avoid collisions.
 
 ## Repo Info
 
