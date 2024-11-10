@@ -18,4 +18,4 @@ A Python-powered, remote-controlled robot built on the Raspberry Pi 3 B. This pr
 - **STL Files**: These are the 3d print files.
 - **.ai (Adobe Illustrator) Files**: These are laser cut files, they are the best to use so far, make sure to use 3mm/0.125in thick wood.
 - **Circuit Diagrams**: These are not accurate _to the Pi GPIO pins_, they are however accurate for all the components.
-- **When Changing Pins**: Use a diagram of the Pi GPIO pins _and the gpiozero documentation_ to properly change the code to match your circuit.
+- **When Changing Pins**: Use a diagram of the Pi GPIO pins _and the Rpi.GPIO documentation_ to properly change the code to match your circuit.
