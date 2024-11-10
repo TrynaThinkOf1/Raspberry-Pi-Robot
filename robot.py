@@ -2,11 +2,6 @@ import RPi.GPIO as GPIO
 import keyboard
 from time import sleep
 
-keyboard.on_press(on_key_press)
-keyboard.on_release(on_key_release)
-
-keyboard.wait('esc')
-
 GPIO.setwarnings(False)
 
 # Right Motor
@@ -96,6 +91,11 @@ def on_key_press(event):
 def on_key_release(event):
     if event.name in {'w', 's', 'a', 'd'}:
         stop_movement()
+
+keyboard.on_press(on_key_press)
+keyboard.on_release(on_key_release)
+
+keyboard.wait('esc')
 
 if __name__ == "__main__":
     print("'help' for command list")
