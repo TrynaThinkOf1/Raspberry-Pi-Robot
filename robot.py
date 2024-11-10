@@ -8,6 +8,8 @@ command_list_help = {
     "d": "turn right until stopped"
 }
 
+command_list_valid = {"w", "a", "s", "d"}
+
 GPIO.setwarnings(False)
 
 # Right Motor
