@@ -47,7 +47,7 @@ try:
         
         if command.lower() == "help":
             for command in command_list_help:
-            print(command + " -> " + command_list_help[command] + "\n")
+                print(command + " -> " + command_list_help[command] + "\n")
         if command in command_list_valid:
             if command == 'w':
                 GPIO.output(in1,GPIO.HIGH)
