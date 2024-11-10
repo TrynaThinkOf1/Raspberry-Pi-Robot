@@ -1,13 +1,6 @@
 import RPi.GPIO as GPIO
 from time import sleep
 
-command_list_help = {
-    "w": "move forward until stopped",
-    "s": "move backward until stopped",
-    "a": "turn left until stopped",
-    "d": "turn right until stopped"
-}
-
 command_list_valid = {"w", "a", "s", "d", "c"}
 
 GPIO.setwarnings(False)
@@ -45,9 +38,6 @@ try:
     while(True):
         command = input(">> ")
         
-        if command.lower() == "help":
-            for command in command_list_help:
-                print(command + " -> " + command_list_help[command] + "\n")
         if command in command_list_valid:
             if command == 'w':
                 GPIO.output(in1,GPIO.HIGH)
@@ -94,6 +84,3 @@ try:
 except KeyboardInterrupt:
   GPIO.cleanup()
   print("GPIO Clean up")
-
-if __name__ == "__main__":
-    print("'help' for command list")
