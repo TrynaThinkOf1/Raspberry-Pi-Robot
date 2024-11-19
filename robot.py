@@ -6,16 +6,36 @@ while True:
     cmd = input(">> ")
 
     if cmd == 'w':
-        driver.forward()
+        try:
+            driver.forward()
+        except Exception as e:
+            print(e)
+            continue
 
-    if cmd == 's':
-        driver.backward()
+    elif cmd == 'a':
+        try:
+            driver.turn_left()
+        except Exception as e:
+            print(e)
+            continue
 
-    if cmd == 'a':
-        driver.turn_left()
+    elif cmd == 'd':
+        try:
+            driver.turn_right()
+        except Exception as e:
+            print(e)
+            continue
 
-    if cmd == 'd':
-        driver.turn_right()
+    elif cmd == 's':
+        try:
+            driver.backward()
+        except Exception as e:
+            print(e)
+            continue
 
-    if cmd == 'c':
-        driver.stop()
+    elif cmd == 'c':
+        try:
+            driver.stop()
+        except Exception as e:
+            print(e)
+            continue
